@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven'   // Must match your Jenkins Global Tool Configuration
-           // Optional: use if JDK is configured
+        // Optional: add JDK if needed
     }
 
     environment {
@@ -41,7 +41,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                   
                     docker.build("${DOCKER_IMAGE}:${IMAGE_TAG}", "-f jenkins/Dockerfile jenkins")
                     echo "Docker image built successfully"
                 }
@@ -59,27 +58,24 @@ pipeline {
             }
         }
 
-    }
-    stage('Run Docker Image') {
-    steps {
-        script {
-            
-            sh "docker pull ${DOCKER_IMAGE}:${IMAGE_TAG}"
-            
-            sh "docker run --rm --name java-app-run ${DOCKER_IMAGE}:${IMAGE_TAG}"
-            
-            echo "Docker container ran successfully"
+        stage('Run Docker Image') {
+            steps {
+                script {
+                    sh "docker pull ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                    sh "docker run --rm --name java-app-run ${DOCKER_IMAGE}:${IMAGE_TAG}"
+                    echo "Docker container ran successfully"
+                }
+            }
         }
-    }
-}
 
+    }
 
     post {
         success {
-            echo "Pipeline finished successfully!"
+            echo "Pipeline finished successfully"
         }
         failure {
-            echo "Pipeline failed. Check the logs for errors."
+            echo "Pipeline failed. Check the logs for errors"
         }
     }
 }
