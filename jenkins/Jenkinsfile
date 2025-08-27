@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'   // Must match your Jenkins Global Tool Configuration
-        // Optional: add JDK if needed
+        maven 'Maven'   
+        
     }
 
     environment {
@@ -58,15 +58,7 @@ pipeline {
             }
         }
 
-        stage('Run Docker Image') {
-            steps {
-                script {
-                    sh "docker pull ${DOCKER_IMAGE}:${IMAGE_TAG}"
-                    sh "docker run --rm --name java-app-run ${DOCKER_IMAGE}:${IMAGE_TAG}"
-                    echo "Docker container ran successfully"
-                }
-            }
-        }
+       
 
     }
 
