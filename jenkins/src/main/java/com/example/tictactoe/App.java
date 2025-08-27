@@ -2,6 +2,6 @@ package com.example.tictactoe;
 
 public class App {
     public static void main(String[] args) {
-        new TicTacToe();
+        javax.swing.SwingUtilities.invokeLater(() -> new TicTacToeGUI());
     }
 }
