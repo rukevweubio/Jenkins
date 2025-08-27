@@ -1,6 +1,10 @@
 pipeline {
-    agent {
-        docker { image 'openjdk:11-jdk-slim' }
+    agent  any 
+
+    tools {
+        maven 'Maven 3.9.3'  // name of the Maven installation from Global Tool Configuration
+        // You can also add JDK here if needed
+        
     }
 
     environment {
